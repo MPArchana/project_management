@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th colspan="2"><center>Task Details</center></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Project</strong></td>
+        <td><%= @task.project.name %> </td>
+      </tr>
+
+      <tr>
+        <td><strong>Name:</strong></td>
+        <td><%= @task.name %></td>
+      </tr>
+
+      <tr>
+        <td><strong>Status:</strong></td>
+        <td><%= @task.status %></td>
+      </tr>
+      <tr>
+        <td><strong>Due date:</strong></td>
+        <td><%= @task.due_date %></td>
+      </tr>
+      <tr>
+        <td><strong>Label:</strong></td>
+        <td><%= @task.label %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Edit', edit_task_path(@task), class: "btn btn-info" %> |
+<%= link_to 'Back', tasks_path, class: "btn btn-secondary" %>
+

@@ -1,0 +1,21 @@
+<center><h3>Assign users to Project <%= @project.name %></h3></center>
+<br><br>
+<div class="container">
+  <%= simple_form_for @project, url: "assign_users", method: "post", 
+    html: { class: "form-horizontal" } do |f| %>
+    <%= f.error_notification %>
+    
+    <%= f.association :user, collection: User.all, label_method: :name, value_method: :id,
+      prompt: "Select User" %>
+ 
+    <div class="row">  
+      <div class="col-md-4 offset-md-4"></div>
+        <%= f.submit class: "btn-primary" %>
+      </div>
+  <% end %>
+</div>
+
+<%= link_to 'Back', projects_path, class: "btn btn-secondary" %>
+
+
+

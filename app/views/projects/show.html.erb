@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container" >
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th colspan="2"><center>Project Details</center></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Name:</strong></td>
+        <td><%=@project.name %></td>
+      </tr>
+
+      <tr>
+        <td><strong>Description:</strong></td>
+        <td><%=@project.description %></td>
+      </tr>
+
+      <tr>
+        <td><strong>Client details:</strong></td>
+        <td><%=@project.client_details%></td>
+      </tr>
+
+      <tr>
+        <td><strong>Tasks List:</strong></td>
+        <td>
+          <ul>
+            <% @project.tasks.each do |task| %>
+              <%= link_to task do %>
+                <li class="list-group">
+                  <%= "#{task.name} - Status: #{task.status}" %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to 'Edit', edit_project_path(@project), class: "btn btn-info" %> |
+<%= link_to 'Back', projects_path, class: "btn btn-secondary" %>
