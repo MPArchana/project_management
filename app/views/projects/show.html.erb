@@ -24,6 +24,21 @@
       </tr>
 
       <tr>
+        <td><strong>Assignee:</strong></td>
+        <td>
+          <ul>
+            <% @project.users.each do |user| %>
+              <%= link_to user do %>
+                <li class="list-group">
+                  <%= user.name_with_email %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
         <td><strong>Tasks List:</strong></td>
         <td>
           <ul>

@@ -9,7 +9,7 @@
          <%= f.input :name %>
        </div>
        <div class="col-sm">
-         <%= f.input :status, collection:[ 'Pending','In Process','Done' ] %>
+         <%= f.input :status, collection: Task::STATUS.values %>
         
       </div>
       <div class="col-sm">
@@ -17,14 +17,14 @@
         
       </div>
       <div class="col-sm">
-         <%= f.input :label, collection: ['Feature','Enhancement','Bug','Rework', 'UI-Work'] %>
+         <%= f.input :label, collection: Task::LABEL.values %>
         
       </div>
       <div class="col-sm">
-         <%= f.input :done %>
+         <%#= f.input :done %>
       </div>
       <div class="col-sm">     
-       <%= f.button :submit, class: "btn-primary" %>
+       <%= f.button :submit, class: "btn-success" %>
       </div>
 
     </div>
@@ -34,4 +34,5 @@
 <script type="text/javascript">
   $('#datepicker').datepicker({format: 'yyyy-mm-dd'});
 </script>
+
 

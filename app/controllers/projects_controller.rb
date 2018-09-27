@@ -10,8 +10,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @users = User.all
-    @project_user = UserProject.new
   end
 
   # GET /projects/new
@@ -30,7 +28,12 @@ class ProjectsController < ApplicationController
 
    # GET /projects/:id/assign_users
   def assign_users
-    
+    @project.user_ids = params[:project][:user_ids] rescue []
+    if @project.save
+      redirect_to @project, notice: "Users added successfully."
+    else
+      redirect_to assign_users_form_project_path(@project), alert: "Error: #{project.errors.full_messages.join(",")}"
+    end    
   end
 
   # POST /projects
@@ -83,6 +86,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :client_details)
+      params.require(:project).permit(:name, :description, :client_details, :user_ids => [])
     end
 end

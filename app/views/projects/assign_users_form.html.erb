@@ -5,12 +5,15 @@
     html: { class: "form-horizontal" } do |f| %>
     <%= f.error_notification %>
     
-    <%= f.association :user, collection: User.all, label_method: :name, value_method: :id,
-      prompt: "Select User" %>
+    <% User.all.each do |user| %>
+      <%= check_box_tag "project[user_ids][]", user.id, @project.user_ids.include?(user.id) %>
+      <%= user.name_with_email %>
+      <br>
+    <% end %>
  
     <div class="row">  
       <div class="col-md-4 offset-md-4"></div>
-        <%= f.submit class: "btn-primary" %>
+        <%= f.submit class: "btn-success" %>
       </div>
   <% end %>
 </div>

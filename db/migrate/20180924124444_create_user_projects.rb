@@ -1,10 +1,8 @@
 class CreateUserProjects < ActiveRecord::Migration
   def change
-    create_table :user_projects do |t|
-      t.integer :user_id
-      t.integer :project_id
-
-      t.timestamps null: false
+    create_table :projects_users do |t|
+      t.references :user
+      t.references :project
     end
   end
 end

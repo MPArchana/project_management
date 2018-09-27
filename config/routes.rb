@@ -19,7 +19,8 @@ Rails.application.routes.draw do
 
   resources :users
   resources :tasks do
-    get :assign_users, on: :member
+    get :assign_users_form, on: :member
+    post :assign_users, on: :member
   end
   resources :projects do
     get :assign_users_form, on: :member

@@ -21,13 +21,18 @@
           <tr>
             <td><%= task.project.name %></td>
             <td><%= task.name %></td>
-            <td><%= task.status %></td>
+            <td class="<%= task.status %>"><%= task.status %></td>
             <td><%= task.due_date %></td>
             <td><%= task.label %></td>
-            <td><%= link_to 'Assign Users', assign_users_task_path(task.id), class: "btn btn-info" %></td>
-            <td><%= link_to 'Show', task, class: "btn btn-success" %></td>
-            <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" %></td>
-            <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+            <td>
+              <div class="btn-stack">
+                <%= link_to 'Assign Users', assign_users_form_task_path(task.id), 
+                  class: "btn btn-primary" if task.project.users.count > 0 %>
+                <%= link_to 'Show', task, class: "btn btn-success" unless task.done? %>
+                <%= link_to 'Edit', edit_task_path(task), class: "btn btn-info" unless task.done? %>
+                <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+              </div>
+            </td>
           </tr>
         <% end %>
       </tbody>
@@ -39,3 +44,15 @@
 
 <%= link_to 'Add Task', new_task_path, class: "btn btn-primary" %>
 <%= link_to 'Back', projects_path, class: "btn btn-info" %>
+
+<style type="text/css">
+  .Pending {
+    background: #f2d227;
+  }
+  .Done {
+    background: #4eef1c;
+  }
+  .Process {
+    background: #44f3c1;
+  }
+</style>

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :assign_users]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :assign_users_form, :assign_users]
 
   # GET /tasks
   # GET /tasks.json
@@ -10,7 +10,6 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @users = User.all
     @comment = Comment.new
     @comments = Comment.where(task_id: @task.id)
   end
@@ -18,14 +17,25 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-    params[:project_id].inspect
+    #params[:project_id].inspect
   end
 
   # GET /tasks/1/edit
   def edit
   end
 
+  def assign_users_form
+    @users = User.all
+  end
+
+
   def assign_users
+     @task.user_ids = params[:task][:user_ids] rescue []
+    if @task.save
+      redirect_to @task, notice: "Users added successfully."
+    else
+      redirect_to assign_users_form_task_path(@task), alert: "Error: #{task.errors.full_messages.join(",")}"
+    end   
   end
 
   # POST /tasks
@@ -47,9 +57,9 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    if @task.done
-      redirect_to @task, notice: 'Task already done.'
-    else
+    #if @task.done
+      #redirect_to @task, notice: 'Task already done.'
+    #else
       respond_to do |format|
         if @task.update(task_params)
           format.html { redirect_to tasks_path, notice: 'Task was successfully updated.' }
@@ -59,7 +69,7 @@ class TasksController < ApplicationController
           format.json { render json: @task.errors, status: :unprocessable_entity }
         end
       end
-    end
+    #end
   end
 
   # DELETE /tasks/1
@@ -81,6 +91,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:project_id, :name, :status, :due_date, :label, :done)
+      params.require(:task).permit(:project_id, :name, :status, :due_date, :label, :done, :user_ids => [])
     end
 end

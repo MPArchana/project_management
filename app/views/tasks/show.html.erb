@@ -30,6 +30,21 @@
         <td><strong>Label:</strong></td>
         <td><%= @task.label %></td>
       </tr>
+
+      <tr>
+        <td><strong>Assigned:</strong></td>
+        <td>
+          <ul>
+            <% @task.users.each do |user| %>
+              <%= link_to user do %>
+                <li class="list-group">
+                  <%= user.name_with_email %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
